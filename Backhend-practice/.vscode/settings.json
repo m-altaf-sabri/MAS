@@ -1,0 +1,8 @@
+{
+    "accessibility.accessibleView.closeOnKeyPress": false,
+    "accessibility.debugWatchVariableAnnouncements": false,
+    "accessibility.openChatEditedFiles": false,
+    "accessibility.replEditor.readLastExecutionOutput": false,
+    "accessibility.replEditor.autoFocusReplExecution": "input",
+    "accessibility.hideAccessibleView": true
+}

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammad Altaf Sabri - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Design System Variables */
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-400: rgba(45, 166, 178, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --font-family-base: 'FKGroteskNeue', 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-size-xs: 11px;
+            --font-size-sm: 12px;
+            --font-size-base: 14px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 18px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-size-4xl: 30px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 550;
+            --font-weight-bold: 600;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --space-48: 48px;
+            --space-64: 64px;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --duration-normal: 250ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-gray-400-rgb: 119, 124, 124;
+                --color-teal-300-rgb: 50, 184, 198;
+                --color-gray-300-rgb: 167, 169, 169;
+                --color-gray-200-rgb: 245, 245, 245;
+                --color-background: var(--color-charcoal-700);
+                --color-surface: var(--color-charcoal-800);
+                --color-text: var(--color-gray-200);
+                --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+                --color-primary: var(--color-teal-300);
+                --color-primary-hover: var(--color-teal-400);
+                --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+                --color-card-border: rgba(var(--color-gray-400-rgb), 0.15);
+            }
+        }
+
+        @font-face {
+            font-family: 'FKGroteskNeue';
+            src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-16) var(--space-32);
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-32);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-secondary);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-base);
+            transition: color var(--duration-normal) var(--ease-standard);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: var(--font-size-3xl);
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            padding: var(--space-64) var(--space-32);
+            background: linear-gradient(135deg, rgba(33, 128, 141, 0.05) 0%, rgba(33, 128, 141, 0.02) 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: var(--space-64);
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-16);
+            color: var(--color-text);
+        }
+
+        .hero-text .subtitle {
+            font-size: var(--font-size-xl);
+            color: var(--color-primary);
+            margin-bottom: var(--space-24);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .hero-text p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-32);
+            line-height: 1.7;
+        }
+
+        .hero-image {
+            flex: 0 0 300px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 3px solid var(--color-primary);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-8);
+            padding: var(--space-16) var(--space-32);
+            background-color: var(--color-primary);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-base);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-lg);
+            transition: background-color var(--duration-normal) var(--ease-standard);
+        }
+
+        .cta-button:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        /* Section Styles */
+        section {
+            padding: var(--space-64) var(--space-32);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-48);
+            text-align: center;
+            color: var(--color-text);
+            position: relative;
+            padding-bottom: var(--space-16);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--color-primary);
+            border-radius: var(--radius-full);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-48);
+        }
+
+        .bio-box {
+            background-color: var(--color-surface);
+            padding: var(--space-32);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bio-box h3 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-16);
+            color: var(--color-text);
+        }
+
+        .bio-box p {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            font-size: var(--font-size-base);
+        }
+
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-16);
+        }
+
+        .strength-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+            padding: var(--space-16);
+            background-color: var(--color-surface);
+            border-radius: var(--radius-base);
+            border: 1px solid var(--color-card-border);
+            transition: transform var(--duration-normal) var(--ease-standard);
+        }
+
+        .strength-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .strength-item i {
+            font-size: var(--font-size-xl);
+            color: var(--color-primary);
+        }
+
+        .strength-item span {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text);
+        }
+
+        /* Resume Section */
+        .resume-content {
+            display: grid;
+            gap: var(--space-48);
+        }
+
+        .resume-subsection h3 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-24);
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+        }
+
+        .resume-subsection h3 i {
+            color: var(--color-primary);
+        }
+
+        .timeline-item {
+            background-color: var(--color-surface);
+            padding: var(--space-24);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            margin-bottom: var(--space-16);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-item h4 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+            margin-bottom: var(--space-8);
+        }
+
+        .timeline-item .institution,
+        .timeline-item .company {
+            color: var(--color-primary);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-8);
+        }
+
+        .timeline-item .meta {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--space-16);
+        }
+
+        .timeline-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-item ul li {
+            padding-left: var(--space-20);
+            position: relative;
+            margin-bottom: var(--space-8);
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-base);
+        }
+
+        .timeline-item ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-16);
+        }
+
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+            padding: var(--space-16) var(--space-20);
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text);
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .skill-tag:hover {
+            border-color: var(--color-primary);
+            background-color: rgba(33, 128, 141, 0.05);
+        }
+
+        .skill-tag i {
+            color: var(--color-primary);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-24);
+        }
+
+        .contact-card {
+            background-color: var(--color-surface);
+            padding: var(--space-32);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-card-border);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: transform var(--duration-normal) var(--ease-standard);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-card i {
+            font-size: 36px;
+            color: var(--color-primary);
+            margin-bottom: var(--space-16);
+        }
+
+        .contact-card h3 {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-12);
+            color: var(--color-text);
+        }
+
+        .contact-card p {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+        }
+
+        .contact-card a {
+            color: var(--color-primary);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            padding: var(--space-32);
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--color-surface);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: var(--space-48);
+                transition: left var(--duration-normal) var(--ease-standard);
+                border-right: 1px solid var(--color-border);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-image {
+                flex: 0 0 250px;
+            }
+
+            .hero-image img {
+                height: 250px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .strengths-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: var(--space-48) var(--space-20);
+            }
+
+            .hero {
+                padding: var(--space-48) var(--space-20);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">MA Sabri</div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+                <li><a href="#resume" onclick="closeMobileMenu()">Resume</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Mohammad Altaf Sabri</h1>
+                <p class="subtitle">Student &amp; Freelancer | FTTH Engineer</p>
+                <p>Passionate about telecommunications and technology, seeking opportunities to showcase excellence and
+                    professionalism in delivering quality work.</p>
+                <a href="#contact" class="cta-button">
+                    <i class="fas fa-envelope"></i>
+                    Get In Touch
+                </a>
+            </div>
+            <div class="hero-image">
+                <img src="https://pplx-res.cloudinary.com/image/upload/v1761403495/pplx_project_search_images/6183d78561850f448f581759357b119bd7e9738b.png"
+                    alt="Mohammad Altaf Sabri">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="bio-box">
+                <h3><i class="fas fa-user"></i> Biography</h3>
+                <p>I am Mohd Altaf, looking for a good opportunity in the telecommunication industry to showcase utmost
+                    excellence and professionalism in delivering quality work. Along with building and improving on a
+                    wide skill set by working on different systems and processes. I am looking for a fast-paced and
+                    challenging environment to further improve on my abilities and progress further in the near future
+                    by doing an esteemed masters program.</p>
+            </div>
+            <div class="bio-box">
+                <h3><i class="fas fa-star"></i> My Strengths</h3>
+                <div class="strengths-grid">
+                    <div class="strength-item">
+                        <i class="fas fa-comments"></i>
+                        <span>Communication Skills</span>
+                    </div>
+                    <div class="strength-item">
+                        <i class="fas fa-users"></i>
+                        <span>Leadership Qualities</span>
+                    </div>
+                    <div class="strength-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Teamwork</span>
+                    </div>
+                    <div class="strength-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Stress Management</span>
+                    </div>
+                    <div class="strength-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Work Commitment</span>
+                    </div>
+                    <div class="strength-item">
+                        <i class="fas fa-fire"></i>
+                        <span>Hard Working</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume">
+        <h2 class="section-title">Resume</h2>
+        <div class="resume-content">
+            <!-- Education -->
+            <div class="resume-subsection">
+                <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                <div class="timeline-item">
+                    <h4>Microsoft Office Short Diploma</h4>
+                    <p class="institution">SETWIN Moti Galli Technical Institute</p>
+                    <p class="meta">2023 | Score: 65.4%</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Intermediate (M.P.C.)</h4>
+                    <p class="institution">Govt. City Junior College</p>
+                    <p class="meta">2021 | Score: 68.16%</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Secondary School Certificate</h4>
+                    <p class="institution">Fairys Flower High School</p>
+                    <p class="meta">2019 | Score: 5.8 CGPA</p>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="resume-subsection">
+                <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                <div class="timeline-item">
+                    <h4>FTTH Engineer / Installation Engineer</h4>
+                    <p class="company">Planet PCI Infotech Ltd</p>
+                    <p class="meta">Oct 2021 - June 2022</p>
+                    <ul>
+                        <li>Ensured repairs met quality standards</li>
+                        <li>Provided high-level customer service</li>
+                        <li>Inventory/device management</li>
+                        <li>Maintained professional workspaces</li>
+                        <li>Disassembled/repaired devices</li>
+                        <li>Delivered timely, high-quality work</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Associate</h4>
+                    <p class="company">HRH Next Customer Service Associate Ltd (Cars24)</p>
+                    <p class="meta">3 months</p>
+                    <ul>
+                        <li>Customer interaction/solution</li>
+                        <li>Convincing and management</li>
+                        <li>Innovated creative ideas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="resume-subsection">
+                <h3><i class="fas fa-tools"></i> Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-tag">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>Good Communication</span>
+                    </div>
+                    <div class="skill-tag">
+                        <i class="fas fa-laptop"></i>
+                        <span>Basic Computer Knowledge</span>
+                    </div>
+                    <div class="skill-tag">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Microsoft Office</span>
+                    </div>
+                    <div class="skill-tag">
+                        <i class="fas fa-wordpress"></i>
+                        <span>WordPress Development</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Address</h3>
+                <p>Flat No. 204, Rabiya, Manzil<br>Yakuthpura, Hyderabad<br>Telangana, 500002</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p><a href="mailto:mohdaltafsabrigmail.com">mohdaltafsabrigmail.com</a></p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h3>Phone</h3>
+                <p><a href="tel:6300028924">6300028924</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mohammad Altaf Sabri. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
+        // Active navigation link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function setActiveNavLink() {
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveNavLink);
+        window.addEventListener('load', setActiveNavLink);
+
+        // Smooth scroll for navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                const offsetTop = targetSection.offsetTop - 70;
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

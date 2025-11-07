@@ -1,0 +1,12 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on",
+    "workbench.colorTheme": "Default Dark Modern",
+    "editor.mouseWheelZoom": true,
+    "editor.autoIndentOnPaste": true,
+    "editor.aiStats.enabled": true,
+    "window.autoDetectColorScheme": true,
+    "window.zoomLevel": 0,
+    "window.zoomPerWindow": false
+}
