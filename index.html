@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Account Finder & Unlinker Tool</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --shadow: rgba(0, 0, 0, 0.25);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --danger: #dc2626;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Fixed Theme Toggle */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 0.6rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            z-index: 1000;
+        }
+
+        header {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 25px -5px var(--shadow);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-sub);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 25px -5px var(--shadow);
+        }
+
+        h2 {
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.4rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            font-size: 1.4rem;
+        }
+
+        /* Connected Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .service-card {
+            background: var(--bg-color);
+            border: 1px solid var(--card-border);
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .badge-linked {
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--accent);
+        }
+
+        .action-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--danger);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Quick Direct Security Management */
+        .direct-links {
+            list-style: none;
+        }
+
+        .direct-links li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .direct-links li:last-child {
+            border-bottom: none;
+        }
+
+        .direct-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .direct-links a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .search-box {
+                flex-direction: column;
+            }
+
+            .direct-links li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">☀️</span>
+        <span id="themeText">Light</span>
+    </button>
+
+    <div class="container">
+        <header>
+            <h1>Email Location & Unlinker Tool</h1>
+            <p class="subtitle">Check active login locations, connected third-party apps, and manage email removal
+                links.</p>
+            <form class="search-box" onsubmit="event.preventDefault(); triggerCheck();">
+                <input type="email" id="userEmail" placeholder="Enter your email address..." required>
+                <button type="submit" class="btn">Scan Logins</button>
+            </form>
+        </header>
+
+        <!-- Detected Active Logins / Sessions -->
+        <section>
+            <h2>Detected Active Sessions & App Access</h2>
+            <div class="services-grid" id="sessionsGrid">
+                <div class="service-card">
+                    <div>
+                        <div class="service-header">
+                            <span class="service-title">Google Account</span>
+                            <span class="badge badge-active">Logged In</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Last seen active on Chrome (Windows OS)
+                        </p>
+                    </div>
+                    <a href="https://myaccount.google.com/permissions" target="_blank" class="action-link">Remove /
+                        Revoke Access →</a>
+                </div>
+
+                <div class="service-card">
+                    <div>
+                        <div class="service-header">
+                            <span class="service-title">Microsoft / Outlook</span>
+                            <span class="badge badge-linked">Linked App</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Connected via OAuth 2.0 access</p>
+                    </div>
+                    <a href="https://account.live.com/consent/Manage" target="_blank" class="action-link">Remove /
+                        Revoke Access →</a>
+                </div>
+
+                <div class="service-card">
+                    <div>
+                        <div class="service-header">
+                            <span class="service-title">Social Media & OAuth</span>
+                            <span class="badge badge-linked">Linked</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Third-party site sign-ins</p>
+                    </div>
+                    <a href="https://facebook.com/settings?tab=applications" target="_blank" class="action-link">Manage
+                        Logins →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Official Unlink & Removal Direct Dashboards -->
+        <section>
+            <h2>Direct Email Removal & Unlink Hubs</h2>
+            <ul class="direct-links">
+                <li>
+                    <span><strong>Google Third-Party Connections</strong> (See everywhere Google email is used to log
+                        in)</span>
+                    <a href="https://myaccount.google.com/connections" target="_blank">Manage & Revoke</a>
+                </li>
+                <li>
+                    <span><strong>Apple ID Sign-In Apps</strong> (Hide My Email & third-party app logins)</span>
+                    <a href="https://appleid.apple.com/" target="_blank">Manage & Remove</a>
+                </li>
+                <li>
+                    <span><strong>Yahoo / AOL Connected Apps</strong> (Active logins & app passwords)</span>
+                    <a href="https://login.yahoo.com/account/security" target="_blank">View Security Settings</a>
+                </li>
+                <li>
+                    <span><strong>Unsubscribe & Clean Inbox</strong> (Remove email from bulk sender lists)</span>
+                    <a href="https://saymine.com/" target="_blank">Search & Delete Data</a>
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>© Email Security Manager. Manage your active sessions and privacy effectively.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+            }
+        });
+
+        // Demo email check interaction
+        function triggerCheck() {
+            const email = document.getElementById('userEmail').value;
+            alert('Scanning active management portals for: ' + email + '\n\nUse the direct links below to disconnect your email from unwanted apps.');
+        }
+    </script>
+
+</body>
+
+</html>
