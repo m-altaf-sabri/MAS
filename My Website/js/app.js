@@ -1,52 +1,102 @@
-// Portfolio app script: render projects and small UI behaviors
-document.addEventListener('DOMContentLoaded', () => {
-    // set year in footer
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+const yearEl = document.getElementById('year');
+if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+}
 
-    // load projects from local JSON
-    const grid = document.getElementById('projectsGrid');
-    if (grid) {
-        fetch('projects.json')
-            .then(r => r.json())
-            .then(data => renderProjects(grid, data))
-            .catch(() => {
-                grid.innerHTML = '<p class="muted">No projects available.</p>';
-            });
+const themeToggle = document.querySelector('.theme-toggle');
+const themeIcon = document.querySelector('.theme-icon');
+const themeLabel = document.querySelector('.theme-label');
+
+const applyTheme = (theme) => {
+    const resolvedTheme = theme === 'light' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', resolvedTheme);
+
+    if (themeIcon) {
+        themeIcon.textContent = resolvedTheme === 'light' ? '☀️' : '🌙';
     }
 
-    // mailto link fallback
-    const mailto = document.getElementById('mailtoLink');
-    if (mailto) mailto.setAttribute('href', 'mailto:you@example.com');
+    if (themeLabel) {
+        themeLabel.textContent = resolvedTheme === 'light' ? 'Light' : 'Dark';
+    }
+
+    localStorage.setItem('portfolio-theme', resolvedTheme);
+};
+
+const savedTheme = localStorage.getItem('portfolio-theme');
+if (savedTheme) {
+    applyTheme(savedTheme);
+} else {
+    applyTheme('light');
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        applyTheme(currentTheme);
+    });
+}
+
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
+const navLinks = document.querySelectorAll('.main-nav a');
+
+if (menuToggle && mainNav) {
+    menuToggle.addEventListener('click', () => {
+        const isOpen = mainNav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        mainNav?.classList.remove('open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+        navLinks.forEach(item => item.classList.remove('active'));
+        link.classList.add('active');
+    });
 });
 
-function renderProjects(container, projects) {
-    if (!Array.isArray(projects) || projects.length === 0) {
-        container.innerHTML = '<p class="muted">No projects to show.</p>';
-        return;
-    }
+const sections = document.querySelectorAll('main section[id], section[id="contact"]');
 
-    container.innerHTML = projects.map(p => projectCard(p)).join('\n');
-}
+const setActiveNav = () => {
+    const scrollPosition = window.scrollY + 120;
+    let activeId = 'home';
 
-function projectCard(p) {
-    const url = p.link ? ` <a href="${p.link}" target="_blank" rel="noopener">→ demo</a>` : '';
-    const tech = p.tech ? `<div class="tech">${escapeHtml(p.tech.join(' • '))}</div>` : '';
-    return `
-        <article class="card">
-            <h3>${escapeHtml(p.title)}</h3>
-            <p>${escapeHtml(p.description)}${url}</p>
-            ${tech}
-        </article>
-    `;
-}
+    sections.forEach(section => {
+        if (scrollPosition >= section.offsetTop) {
+            activeId = section.id;
+        }
+    });
 
-function escapeHtml(s) {
-    if (!s) return '';
-    return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+    navLinks.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`;
+        link.classList.toggle('active', isActive);
+    });
+};
+
+window.addEventListener('scroll', setActiveNav, { passive: true });
+window.addEventListener('load', setActiveNav);
+
+const contactForm = document.getElementById('contactForm');
+const contactEmail = 'mohdaltafsabri@gmail.com';
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const name = (formData.get('name') || '').toString().trim();
+        const email = (formData.get('email') || '').toString().trim();
+        const subject = (formData.get('subject') || '').toString().trim();
+        const message = (formData.get('message') || '').toString().trim();
+
+        if (!name || !email || !subject || !message) {
+            return;
+        }
+
+        const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        const mailtoSubject = encodeURIComponent(subject);
+        window.location.href = `mailto:${contactEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
+        contactForm.reset();
+    });
 }
