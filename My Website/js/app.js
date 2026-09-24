@@ -19,6 +19,11 @@ const applyTheme = (theme) => {
         themeLabel.textContent = resolvedTheme === 'light' ? 'Light' : 'Dark';
     }
 
+    if (themeToggle) {
+        const nextTheme = resolvedTheme === 'light' ? 'dark' : 'light';
+        themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+    }
+
     localStorage.setItem('portfolio-theme', resolvedTheme);
 };
 
@@ -94,7 +99,9 @@ if (contactForm) {
             return;
         }
 
-        const mailtoBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        const mailtoBody = encodeURIComponent(
+            `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\nPlease reply to: ${email}`
+        );
         const mailtoSubject = encodeURIComponent(subject);
         window.location.href = `mailto:${contactEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
         contactForm.reset();
