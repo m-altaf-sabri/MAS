@@ -4,428 +4,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohammad Altaf Sabri | Web Developer Portfolio</title>
-    <style>
-        /* Modern Color Palette Variables */
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --accent: #38bdf8;
-            --accent-hover: #0284c7;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --shadow: rgba(0, 0, 0, 0.25);
-            --skill-bg: #0f172a;
-        }
-
-        /* Light Theme Variable Overrides */
-        [data-theme="light"] {
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --card-border: #e2e8f0;
-            --accent: #0284c7;
-            --accent-hover: #0369a1;
-            --text-main: #0f172a;
-            --text-sub: #64748b;
-            --shadow: rgba(0, 0, 0, 0.08);
-            --skill-bg: #f8fafc;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 2rem 1rem;
-        }
-
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes profile-float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        @keyframes accent-pulse {
-
-            0%,
-            100% {
-                box-shadow: 0 8px 20px var(--shadow);
-            }
-
-            50% {
-                box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 35%, transparent);
-            }
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Fixed Theme Toggle Button */
-        .theme-toggle-btn {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: var(--card-bg);
-            color: var(--text-main);
-            border: 1px solid var(--card-border);
-            padding: 0.6rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 12px var(--shadow);
-            z-index: 1000;
-            animation: fade-in-up 0.6s ease-out both;
-        }
-
-        .theme-toggle-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        /* Header Layout */
-        header {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-            padding: 2.5rem;
-            background: var(--card-bg);
-            border-radius: 16px;
-            margin-bottom: 2rem;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 25px -5px var(--shadow);
-            animation: fade-in-up 0.7s ease-out both;
-        }
-
-        .profile-img {
-            width: 250px;
-            height: 450px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--accent);
-            box-shadow: 0 8px 20px var(--shadow);
-            flex-shrink: 0;
-            animation: profile-float 4s ease-in-out 0.8s infinite, accent-pulse 3s ease-in-out 0.8s infinite;
-        }
-
-        .header-content {
-            text-align: left;
-        }
-
-        h1 {
-            font-size: 2.75rem;
-            color: var(--accent);
-            margin-bottom: 0.25rem;
-            letter-spacing: -0.5px;
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-sub);
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            font-size: 0.95rem;
-        }
-
-        .contact-info a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .contact-info a:hover {
-            color: var(--accent);
-        }
-
-        .contact-info a:focus-visible,
-        .theme-toggle-btn:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 3px;
-        }
-
-        /* Section Cards */
-        section {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 16px;
-            margin-top: 2.5rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 25px -5px var(--shadow);
-            animation: fade-in-up 0.7s ease-out both;
-        }
-
-        .container>section:nth-of-type(1) {
-            animation-delay: 0.15s;
-        }
-
-        .container>section:nth-of-type(2) {
-            animation-delay: 0.3s;
-        }
-
-        .container>section:nth-of-type(3) {
-            animation-delay: 0.45s;
-        }
-
-        h2 {
-            border-bottom: 3px solid var(--accent);
-            padding-bottom: 0.4rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            font-size: 1.5rem;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-
-        .skill-card {
-            background: var(--skill-bg);
-            padding: 1.2rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid var(--card-border);
-            font-weight: 600;
-            box-shadow: 0 2px 8px var(--shadow);
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 18px var(--shadow);
-        }
-
-        /* Timeline Items */
-        .item {
-            margin-bottom: 1.5rem;
-            padding-left: 1rem;
-            border-left: 3px solid var(--card-border);
-        }
-
-        .item:hover {
-            border-left-color: var(--accent);
-        }
-
-        .item:last-child {
-            margin-bottom: 0;
-        }
-
-        .item-title {
-            font-size: 1.15rem;
-            font-weight: bold;
-        }
-
-        .item-sub {
-            color: var(--accent);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        ul {
-            padding-left: 1.2rem;
-            color: var(--text-sub);
-        }
-
-        ul li {
-            margin-bottom: 0.3rem;
-        }
-
-        footer {
-            text-align: center;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            margin-top: 2rem;
-            padding-bottom: 1rem;
-            animation: fade-in-up 0.7s ease-out 0.6s both;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                scroll-behavior: auto !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 650px) {
-            header {
-                flex-direction: column;
-                text-align: center;
-                padding: 2rem 1.5rem;
-            }
-
-            .header-content {
-                text-align: center;
-            }
-
-            .theme-toggle-btn {
-                top: 1rem;
-                right: 1rem;
-            }
-        }
-    </style>
+    <meta name="description"
+        content="Professional portfolio website for Mohammad Altaf Sabri, a student, freelancer and FTTH engineer.">
+    <title>Mohammad Altaf Sabri | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a href="#home" class="brand" aria-label="Mohammad Altaf Sabri home">MA Sabri</a>
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="#home" class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#resume">Resume</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Light/Dark Mode Toggle Button -->
-    <button class="theme-toggle-btn" id="themeToggle" type="button" aria-label="Switch to light theme"
-        aria-pressed="false">
-        <span id="themeIcon">☀️</span>
-        <span id="themeText">Light</span>
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow">Student • Freelancer • FTTH Engineer</p>
+                    <h1>Mohammad Altaf Sabri</h1>
+                    <p class="lead">Passionate about telecommunications and technology, aiming to deliver reliable,
+                        professional, and user-focused digital solutions with strong communication and service
+                        standards.</p>
+                    <div class="cta-row">
+                        <a href="mailto:mohdaltafsabri@gmail.com" class="button primary">Hire Me</a>
+                        <a href="../My%20Website/MohammadAltafSsabri-CV.pdf" class="button secondary" target="_blank"
+                            rel="noreferrer">View CV</a>
+                    </div>
+                    <ul class="quick-facts" aria-label="Key professional details">
+                        <li><i class="fa-solid fa-location-dot"></i> Hyderabad, Telangana 500002</li>
+                        <li><i class="fa-solid fa-envelope"></i> mohdaltafsabri@gmail.com</li>
+                        <li><i class="fa-solid fa-phone"></i> +91 63000 28924</li>
+                    </ul>
+                </div>
+                <div class="hero-visual" aria-label="Profile portrait">
+                    <div class="portrait-frame">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
+                            alt="Professional portrait of Mohammad Altaf Sabri">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-block">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow accent">About</p>
+                    <h2>Professional Profile</h2>
+                </div>
+                <div class="about-grid">
+                    <article class="card">
+                        <div class="icon-badge"><i class="fa-solid fa-user"></i></div>
+                        <h3>Biography</h3>
+                        <p>I am Mohd Altaf, looking for opportunities in the telecommunication and service industry to
+                            contribute with professionalism, dedication, and a strong work ethic. I continue to expand
+                            my technical and communication skills by working across different systems and environments.
+                        </p>
+                    </article>
+                    <article class="card">
+                        <div class="icon-badge"><i class="fa-solid fa-star"></i></div>
+                        <h3>Strengths</h3>
+                        <div class="strength-list">
+                            <span>Communication</span>
+                            <span>Leadership</span>
+                            <span>Teamwork</span>
+                            <span>Stress Management</span>
+                            <span>Commitment</span>
+                            <span>Hard Work</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="resume" class="section-block alt-bg">
+            <div class="container">
+                <div class="section-heading centered">
+                    <p class="eyebrow accent">Resume</p>
+                    <h2>Experience &amp; Education</h2>
+                </div>
+
+                <div class="resume-grid">
+                    <div class="resume-column">
+                        <h3><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+                        <article class="timeline-item">
+                            <h4>Microsoft Office Short Diploma</h4>
+                            <p class="meta">Setwin Moti Galli Technical Training Institute</p>
+                            <p class="year">2023 • Score: 65.4%</p>
+                        </article>
+                        <article class="timeline-item">
+                            <h4>Intermediate (M.P.C.)</h4>
+                            <p class="meta">Govt. City Junior College</p>
+                            <p class="year">2021 • Score: 68.16%</p>
+                        </article>
+                        <article class="timeline-item">
+                            <h4>Secondary School Certificate</h4>
+                            <p class="meta">Fairys Flower High School</p>
+                            <p class="year">2019 • CGPA: 5.8</p>
+                        </article>
+                    </div>
+
+                    <div class="resume-column">
+                        <h3><i class="fa-solid fa-briefcase"></i> Experience</h3>
+                        <article class="timeline-item">
+                            <h4>FTTH Engineer / Installation Engineer</h4>
+                            <p class="meta">Planet PCI Infotech Ltd</p>
+                            <p class="year">Oct 2021 – Jun 2022</p>
+                            <ul>
+                                <li>Maintained service quality and equipment standards.</li>
+                                <li>Delivered client support with a strong focus on reliability.</li>
+                                <li>Managed inventory, technical requests, and on-site troubleshooting.</li>
+                            </ul>
+                        </article>
+                        <article class="timeline-item">
+                            <h4>Customer Service Associate</h4>
+                            <p class="meta">HRH Next (Cars24)</p>
+                            <p class="year">3 months</p>
+                            <ul>
+                                <li>Handled customer interactions and issue-resolution effectively.</li>
+                                <li>Communicated clearly and built trust with clients.</li>
+                                <li>Contributed ideas that improved service and engagement.</li>
+                            </ul>
+                        </article>
+                    </div>
+
+                    <div class="resume-column full-width">
+                        <h3><i class="fa-solid fa-toolbox"></i> Skills</h3>
+                        <div class="skills-grid">
+                            <span class="skill-chip"><i class="fa-solid fa-comments"></i> Good Communication</span>
+                            <span class="skill-chip"><i class="fa-solid fa-computer"></i> Computer Operations</span>
+                            <span class="skill-chip"><i class="fa-solid fa-file-word"></i> Microsoft Office</span>
+                            <span class="skill-chip"><i class="fa-brands fa-wordpress"></i> WordPress Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="contact" class="section-block">
+        <div class="container">
+            <div class="section-heading centered">
+                <p class="eyebrow accent">Contact</p>
+                <h2>Let’s Work Together</h2>
+            </div>
+
+            <div class="contact-grid">
+                <article class="contact-card">
+                    <div class="icon-badge"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3>Address</h3>
+                    <p>Flat No. 204, Rabiya Manzil,<br>Yakuthpura, Hyderabad,<br>Telangana 500002</p>
+                </article>
+                <article class="contact-card">
+                    <div class="icon-badge"><i class="fa-solid fa-envelope"></i></div>
+                    <h3>Email</h3>
+                    <p><a href="mailto:mohdaltafsabri@gmail.com">mohdaltafsabri@gmail.com</a></p>
+                </article>
+                <article class="contact-card">
+                    <div class="icon-badge"><i class="fa-solid fa-phone"></i></div>
+                    <h3>Phone</h3>
+                    <p><a href="tel:+916300028924">+91 63000 28924</a></p>
+                </article>
+            </div>
+
+            <div class="form-panel">
+                <form id="contactForm" class="contact-form">
+                    <div class="form-header">
+                        <h3>Send a Message</h3>
+                        <p>Tell me about your project or opportunity and I’ll get back to you soon.</p>
+                    </div>
+                    <div class="field-group">
+                        <label for="name">Full Name</label>
+                        <input id="name" name="name" type="text" placeholder="Your full name" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="email">Email Address</label>
+                        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="subject">Subject</label>
+                        <input id="subject" name="subject" type="text" placeholder="Project inquiry / opportunity"
+                            required>
+                    </div>
+                    <div class="field-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Write your message here..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="button primary full-width">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="year">2026</span> Mohammad Altaf Sabri. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button type="button" class="theme-toggle theme-toggle-floating" aria-label="Switch to dark mode">
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+        <span class="theme-label">Dark</span>
     </button>
 
-    <div class="container">
-        <header>
-            <img src="/Documents/photo/MAS.png"
-                alt="Mohammed Altaf Sabri posing for a professional portrait against a plain background"
-                class="profile-img">
-            <div class="header-content">
-                <h1>Mohammed Altaf Sabri</h1>
-                <p class="subtitle">Web Developer &amp; Freelance Professional</p>
-                <div class="contact-info">
-                    <p>📧 <a href="mailto:mohdaltafsabri@gmail.com">mohdaltafsabri@gmail.com</a></p>
-                    <p>📞 <a href="tel:+916300028924">+91 63000 28924</a></p>
-                    <p style="color: var(--text-sub);">📍 Hyderabad, Telangana 500002</p>
-
-                </div>
-                <section>
-                    <h2>About Me</h2>
-                    <p>Motivated web developer and freelancer focused on delivering reliable, user-friendly digital
-                        experiences. I bring a practical approach to problem-solving, clear client communication, and a
-                        commitment to continuous technical growth.</p>
-                </section>
-
-            </div>
-        </header>
-
-        <section>
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">WordPress Development</div>
-                <div class="skill-card">Microsoft Office Suite</div>
-                <div class="skill-card">Computer Operations</div>
-                <div class="skill-card">Client Communications</div>
-            </div>
-        </section>
-
-        <section>
-            <h2>Work Experience</h2>
-            <div class="item">
-                <div class="item-title">FTTH Engineer</div>
-                <div class="item-sub">Planet PCI Infotech Ltd | Oct 2021 – June 2022</div>
-                <ul>
-                    <li>Disassembled, tested, and replaced defective equipment to company standards.</li>
-                    <li>Managed client device inventory and prioritized service requests.</li>
-                </ul>
-            </div>
-            <div class="item">
-                <div class="item-title">Customer Service Associate</div>
-                <div class="item-sub">HRH Next (Cars24) | 3 Months</div>
-                <ul>
-                    <li>Provided client management and issue resolution with key focus on communication.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>Education</h2>
-            <div class="item">
-                <div class="item-title">Microsoft Office Diploma (65.4%)</div>
-                <div class="item-sub">Setwin Moti Galli Technical Training Institute | 2023</div>
-            </div>
-            <div class="item">
-                <div class="item-title">Intermediate M.P.C (68.16%)</div>
-                <div class="item-sub">Govt. City Junior College | 2021</div>
-            </div>
-            <div class="item">
-                <div class="item-title">Secondary School Certificate (5.8 GPA)</div>
-                <div class="item-sub">Fairys Flower High School | 2019</div>
-            </div>
-        </section>
-
-        <footer>
-            <p>© Mohammed Altaf Sabri. All rights reserved.</p>
-        </footer>
-    </div>
-
-    <!-- Theme Switching Script -->
-    <script>
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-
-        const applyTheme = (theme) => {
-            const nextTheme = theme === 'light' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', nextTheme);
-            const isLight = nextTheme === 'light';
-
-            themeIcon.textContent = isLight ? '🌙' : '☀️';
-            themeText.textContent = isLight ? 'Dark' : 'Light';
-            themeToggleBtn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
-            themeToggleBtn.setAttribute('aria-pressed', String(isLight));
-            themeToggleBtn.title = isLight ? 'Switch to dark theme' : 'Switch to light theme';
-            localStorage.setItem('portfolio-theme', nextTheme);
-        };
-
-        const savedTheme = localStorage.getItem('portfolio-theme');
-        const initialTheme = savedTheme === 'light' ? 'light' : 'dark';
-        applyTheme(initialTheme);
-
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            applyTheme(currentTheme === 'light' ? 'dark' : 'light');
-        });
-    </script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
