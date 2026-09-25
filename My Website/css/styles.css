@@ -58,6 +58,14 @@ button {
     font: inherit;
 }
 
+.honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
 .container {
     width: min(var(--container), calc(100% - 2rem));
     margin: 0 auto;
@@ -161,7 +169,7 @@ body[data-theme="dark"] .site-header {
 
 .hero {
     padding: 5rem 0 4rem;
-    background: radial-gradient(circle at top left, rgba(15, 118, 110, 0.1), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0.5), transparent);
+    background: radial-gradient(circle at top left, rgba(15, 118, 110, 0.1), transparent 30%), linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
 }
 
 .hero-grid {
@@ -271,7 +279,7 @@ body[data-theme="dark"] .site-header {
     content: "";
     position: absolute;
     inset: 18px;
-    border: 2px solid rgba(15,118,110,0.2);
+    border: 2px solid rgba(15, 118, 110, 0.2);
     border-radius: 28px;
 }
 
@@ -516,12 +524,13 @@ body[data-theme="dark"] .site-header {
 
 .site-footer {
     background: #0f172a;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
     padding: 1.5rem 0;
     text-align: center;
 }
 
 @media (max-width: 860px) {
+
     .hero-grid,
     .about-grid,
     .resume-grid,
@@ -547,7 +556,7 @@ body[data-theme="dark"] .site-header {
         display: none;
         flex-direction: column;
         align-items: flex-start;
-        background: rgba(255,255,255,0.97);
+        background: rgba(255, 255, 255, 0.97);
         border: 1px solid var(--border);
         border-radius: 18px;
         box-shadow: var(--shadow);

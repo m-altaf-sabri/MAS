@@ -82,28 +82,3 @@ const setActiveNav = () => {
 window.addEventListener('scroll', setActiveNav, { passive: true });
 window.addEventListener('load', setActiveNav);
 
-const contactForm = document.getElementById('contactForm');
-const contactEmail = 'mohdaltafsabri@gmail.com';
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(contactForm);
-        const name = (formData.get('name') || '').toString().trim();
-        const email = (formData.get('email') || '').toString().trim();
-        const subject = (formData.get('subject') || '').toString().trim();
-        const message = (formData.get('message') || '').toString().trim();
-
-        if (!name || !email || !subject || !message) {
-            return;
-        }
-
-        const mailtoBody = encodeURIComponent(
-            `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\nPlease reply to: ${email}`
-        );
-        const mailtoSubject = encodeURIComponent(subject);
-        window.location.href = `mailto:${contactEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
-        contactForm.reset();
-    });
-}
