@@ -1,21 +1,36 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise");
+const nodemailer = require("nodemailer");
+const contactRoutes = require("./routes/contact");
 
-const app = express();
-const PORT = 5000;
+const app = express();jj
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/contact", contactRoutes);
+
 const pool = mysql.createPool({
   host: "localhost",
+  port: 3306,
   user: "root",
   password: "",
   database: "mas_portfolio",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
+});
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });
 
 app.get("/", (req, res) => {
@@ -45,18 +60,44 @@ app.post("/api/contact", async (req, res) => {
       message
     ]);
 
+    await transporter.sendMail({
+      from: `"MAS Portfolio Contact Form" <${process.env.EMAIL_USER}>`,
+      to: process.env.RECEIVER_EMAIL,
+      replyTo: email,
+      subject: `Portfolio Contact: ${subject}`,
+      text: `
+New message received from your portfolio.
+
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+      `,
+      html: `
+        <h2>New Portfolio Contact Message</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
+      `
+    });
+
     console.log(`Message saved. Database ID: ${result.insertId}`);
+    console.log("Email notification sent.");
 
     res.status(201).json({
       success: true,
-      message: "Thank you! Your message was saved successfully."
+      message: "Thank you! Your message was sent successfully."
     });
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Contact form error:", error);
 
     res.status(500).json({
       success: false,
-      message: "Server error. Message could not be saved."
+      message: "Server error. Your message could not be sent."
     });
   }
 });
