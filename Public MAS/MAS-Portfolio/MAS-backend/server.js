@@ -15,19 +15,12 @@ app.use(express.json());
 
 
 // Railway MySQL connection 
-const db = mysql.createPool(process.env.DATABASE_URL);
- ({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT || 3306),
+const db = mysql.createPool(process.env.DATABASE_URL); ({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
 });
-
-pool.getConnection()
+db.getConnection()
   .then((connection) => {
     console.log("MySQL connected successfully!");
     connection.release();
@@ -45,7 +38,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Store pool and transporter in app.locals for route access
-app.locals.pool = pool;
+app.locals.pool = db;
 app.locals.transporter = transporter;
 
 app.get("/", (req, res) => {
