@@ -16,16 +16,18 @@ app.use(express.json());
 
 // Railway MySQL connection 
 
-const db = mysql.createPool(process.env.DATABASE_URL);
-({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
+  port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-db.getConnection()
+pool.getConnection()
   .then((connection) => {
     console.log("MySQL connected successfully!");
     connection.release();
@@ -34,7 +36,7 @@ db.getConnection()
     console.error("MySQL connection failed:", error.message);
   });
 
-app.use("/api", contactRoutes);
+app.use("/api/contact", contactRoutes);
 
 
 // Gmail configuration
