@@ -16,7 +16,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(json());
 
-const db = mysql.createPool({
+const db = mysql.createPool(process.env.DATABASE_URL);
+ ({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
