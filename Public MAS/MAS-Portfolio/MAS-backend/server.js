@@ -4,34 +4,42 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise");
 const nodemailer = require("nodemailer");
+
 const contactRoutes = require("./routes/contact");
 
-const app = express();jj
+const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/contact", contactRoutes);
+app.use("/api", contactRoutes);
+// Railway MySQL connection 
 
-const pool = mysql.createPool({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "",
-  database: "mas_portfolio",
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+const db = mysql.createPool({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+db.getConnection()
+  .then((connection) => {
+    console.log("MySQL connected successfully!");
+    connection.release();
+  })
+  .catch((error) => {
+    console.error("MySQL connection failed:", error.message);
+  });
+
+// Gmail configuration
+
+const transporter = nodemailer.createTransport
+  ({
+    service: "gmail",
+    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+  });
 
 app.get("/", (req, res) => {
   res.send("Portfolio backend is running");
