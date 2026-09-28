@@ -13,16 +13,15 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const databaseUrl =
-  process.env.DATABASE_URL || process.env.MYSQL_URL;
+const db = mysql.createPool(process.env.DATABASE_URL);
+({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT || 3306),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
 
-if (!databaseUrl) {
-  throw new Error(
-    "DATABASE_URL or MYSQL_URL is missing. Add your Railway MySQL URL in .env."
-  );
-}
-
-const db = mysql.createPool(databaseUrl);
 
 db.getConnection()
   .then((connection) => {
