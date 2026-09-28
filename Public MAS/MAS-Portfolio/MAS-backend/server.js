@@ -13,10 +13,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", contactRoutes);
+
 // Railway MySQL connection 
 
-const db = mysql.createPool({
+const db = mysql.createPool(process.env.DATABASE_URL);
+({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   user: process.env.DB_USER,
@@ -32,6 +33,9 @@ db.getConnection()
   .catch((error) => {
     console.error("MySQL connection failed:", error.message);
   });
+
+app.use("/api", contactRoutes);
+
 
 // Gmail configuration
 
