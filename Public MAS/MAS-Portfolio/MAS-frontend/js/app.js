@@ -100,45 +100,52 @@ if ('IntersectionObserver' in window) {
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("form-status");
 
-contactForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+if (contactForm && formStatus) {
+    contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const subject = document.getElementById("subject").value.trim();
-    const message = document.getElementById("message").value.trim();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const subject = document.getElementById("subject").value.trim();
+        const message = document.getElementById("message").value.trim();
 
-    formStatus.textContent = "Sending message...";
-    formStatus.style.color = "#2563eb";
+        formStatus.textContent = "Sending message...";
+        formStatus.style.color = "#2563eb";
 
-    try {
-        const response = await fetch("http://localhost:5000/api/contact", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                subject,
-                message
-            })
-        });
+        try {
+            const response = await fetch(
+                "http://localhost:5000/api/contact",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        subject,
+                        message
+                    })
+                }
+            );
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(data.message || "Unable to send message.");
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Unable to send message."
+                );
+            }
+
+            formStatus.textContent = data.message;
+            formStatus.style.color = "#16a34a";
+
+            contactForm.reset();
+        } catch (error) {
+            formStatus.textContent = error.message;
+            formStatus.style.color = "#dc2626";
+
+            console.error("Contact form error:", error);
         }
-
-        formStatus.textContent = data.message;
-        formStatus.style.color = "#16a34a";
-
-        contactForm.reset();
-    } catch (error) {
-        formStatus.textContent = error.message;
-        formStatus.style.color = "#dc2626";
-
-        console.error("Contact form error:", error);
-    }
-});
+    });
+}
