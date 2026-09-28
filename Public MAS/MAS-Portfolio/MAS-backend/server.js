@@ -16,14 +16,33 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(json());
 
-const db = mysql.createPool(process.env.DATABASE_URL);
- ({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT || 3306),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
+const databaseUrl = process.env.DATABASE_URL?.trim();
+
+if (!databaseUrl) {
+  throw new Error(
+    "DATABASE_URL is missing. Add Railway MYSQL_PUBLIC_URL to your .env file."
+  );
+}
+
+const db = mysql.createPool(databaseUrl);
+
+db.getConnection()
+  .then((connection) => {
+    console.log("MySQL connected successfully!");
+    connection.release();
+  })
+  .catch((error) => {
+    console.error("MySQL connection failed:", error.message);
+  });
+
+// const db = mysql.createPool(process.env.DATABASE_URL);
+//  ({
+//   host: process.env.DB_HOST,
+//   port: Number(process.env.DB_PORT || 3306),
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+// });
 
 
 db.getConnection()
