@@ -3,18 +3,20 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise");
-const nodemailer = require("nodemailer");
 
 const contactRoutes = require("./routes/contact");
+
+const { createTransport } = require("nodemailer");
+const { json } = require("body-parser");
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
-const db = mysql.createPool(process.env.DATABASE_URL);
-({
+const db = mysql.createPool({
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 3306),
   user: process.env.DB_USER,
@@ -32,7 +34,7 @@ db.getConnection()
     console.error("MySQL connection failed:", error.message);
   });
 
-const transporter = nodemailer.createTransport({
+const transporter = createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
