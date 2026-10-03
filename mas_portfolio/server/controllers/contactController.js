@@ -16,14 +16,6 @@ const submitContact = async (req, res) => {
     try {
         const { name, email, message } = req.body;
 
-        // Validate fields
-        if (!name || !email || !message) {
-            return res.status(400).json({
-                success: false,
-                message: "Please fill in all fields."
-            });
-        }
-
         // Save message to MySQL
         const sql = `
       INSERT INTO contacts (name, email, message)
