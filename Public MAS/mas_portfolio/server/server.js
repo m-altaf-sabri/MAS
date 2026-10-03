@@ -15,7 +15,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.json({
         success: true,
-        message: "Life Website Backend is running!"
+        message: "Life Website Backend is running!..."
     });
 });
 
