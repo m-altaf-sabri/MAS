@@ -50,3 +50,6 @@ Thumbs.db
 .pnp
 .pnp.js
 .yarn-integrity
+
+# Wrangler configuration
+.wrangler/
