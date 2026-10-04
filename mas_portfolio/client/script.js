@@ -154,6 +154,7 @@ window.addEventListener("load", () => {
 // CONTACT FORM → BACKEND
 // ========================================
 
+
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 const submitButton = document.getElementById("submitButton");
@@ -162,44 +163,48 @@ if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const message = document.getElementById("message").value.trim();
-
-        if (!name || !email || !message) {
-            formStatus.textContent = "Please fill in all fields.";
-            formStatus.className = "error";
-            return;
-        }
+        const submitButton = contactForm.querySelector("button");
 
         submitButton.disabled = true;
         submitButton.textContent = "Sending...";
-        formStatus.textContent = "";
-        formStatus.className = "";
+
+        const formData = {
+            name: document.getElementById("name").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            message: document.getElementById("message").value.trim()
+        };
 
         try {
-            const response = await fetch("https://localhost:5000/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ name, email, message })
-            });
+            const response = await fetch(
+                "https://mas-portfolio-api.altafsabrim.workers.dev/api/contact",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                }
+            );
 
             const data = await response.json();
 
-            if (response.ok && data.success) {
-                formStatus.textContent = "Message sent successfully! Thank you.";
-                formStatus.className = "success";
-                contactForm.reset();
-            } else {
-                formStatus.textContent = data.message || "Unable to send message.";
-                formStatus.className = "error";
+            if (!response.ok) {
+                throw new Error(data.message || "Server error");
             }
+
+            formStatus.textContent = data.message;
+            formStatus.className = "success";
+
+            contactForm.reset();
+
         } catch (error) {
             console.error("Backend connection error:", error);
-            formStatus.textContent = "Unable to connect to the server.";
+
+            formStatus.textContent =
+                "Unable to connect to the server.";
+
             formStatus.className = "error";
+
         } finally {
             submitButton.disabled = false;
             submitButton.textContent = "Send Message ↗";
