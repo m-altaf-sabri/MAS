@@ -1,0 +1,33 @@
+[
+    {
+        "title": "Personal Portfolio",
+        "description": "This portfolio showcases my web development work, contact details, and sample projects. Built as a responsive static site.",
+        "tech": [
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "link": "./index.html"
+    },
+    {
+        "title": "Freelance WordPress Sites",
+        "description": "Developed and customized WordPress websites for clients, including theme tweaks, plugin configuration, and content updates.",
+        "tech": [
+            "WordPress",
+            "PHP",
+            "HTML",
+            "CSS"
+        ],
+        "link": "#"
+    },
+    {
+        "title": "FTTH Field Installations",
+        "description": "Hands-on experience as an FTTH installation engineer — troubleshooting, customer support, and on-site technical work ensuring high-quality deployments.",
+        "tech": [
+            "FTTH",
+            "Customer Support",
+            "On-site Troubleshooting"
+        ],
+        "link": "#"
+    }
+]
