@@ -45,13 +45,13 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"   # cop
 
 Create `server/.env`:
 
-```
+```dotenv
 PORT=4000
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/identityhub
 JWT_SECRET=put-a-long-random-string-here
 MASTER_KEY=paste-the-64-character-hex-here
-CLIENT_URL=http://localhost:5173
-SERVER_URL=http://localhost:4000
+CLIENT_URL=<http://localhost:5173>
+SERVER_URL=<http://localhost:4000>
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 ```
