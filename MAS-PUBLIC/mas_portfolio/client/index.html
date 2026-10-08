@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altaf | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="nav">
+        <a href="#home" class="logo">M<span>.</span>A<span>.</span>S</a>
+        <button class="menu" id="menu">☰</button>
+        <nav id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About Me</a>
+            <a href="#experience">Experience & Skills</a>
+            <a href="#contact">Contact Me</a>
+        </nav>
+
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+            🌙
+        </button>
+
+    </header>
+
+    <main>
+        <!-- ================= HOME SECTION ================= -->
+        <section id="home" class="hero">
+            <div class="glow glow1"></div>
+            <div class="glow glow2"></div>
+            <div class="hero-content reveal">
+                <p class="eyebrow">HELLO, I'M</p>
+
+                <h1>Mohammed <span>Altaf</span> Sabri</h1>
+
+                <p class="lead">
+                    A creative web developer focused on clean interfaces,
+                    responsive experiences and modern digital products.
+                </p>
+
+                <div class="buttons">
+                    <a class="btn primary" href="#about">Explore Portfolio</a>
+                    <a class="btn ghost" href="#contact">Let's Talk</a>
+                </div>
+            </div>
+            <!-- IMAGE PLACE -->
+            <div class="hero-image reveal">
+                <div class="image-frame">
+                    <img src="./Profile-image.png" alt="Mohd Altaf">
+                </div>
+            </div>
+        </section>
+        <!-- ================= ABOUT SECTION ================= -->
+        <section id="about" class="section">
+            <p class="label reveal">01 / ABOUT</p>
+            <div class="two-col">
+                <h2 class="reveal">Turning ideas into <span>digital experiences.</span></h2>
+                <div class="copy reveal">
+                    <p>I enjoy building websites that feel simple, modern and intuitive.</p>
+                    <p>I’m continuously learning, experimenting with new technologies and improving every project
+                        through clean code and attention to detail.</p>
+                </div>
+            </div>
+        </section>
+        <!-- ================= EXPERIENCE & SKILLS SECTION ================= -->
+        <section id="experience" class="section dark">
+            <p class="label reveal">02 / EXPERIENCE & SKILLS</p>
+            <div class="two-col">
+                <div class="reveal">
+                    <h2>Experience</h2>
+                    <article class="card"><b>01</b>
+                        <div>
+                            <h3>Web Development</h3>
+                            <p>Creating responsive, accessible and visually polished web experiences with modern
+                                front-end tools.</p>
+                        </div>
+                    </article>
+                    <article class="card"><b>02</b>
+                        <div>
+                            <h3>Creative Problem Solving</h3>
+                            <p>Turning requirements and ideas into practical interfaces while keeping usability and
+                                performance in focus.</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="reveal">
+                    <h2>Skills</h2>
+                    <div class="skills">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>React JS</span>
+                        <span>Responsive Design</span>
+                        <span>UI Design</span>
+                        <span>Git & GitHub</span>
+                        <span>Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ================= CONTACT SECTION ================= -->
+        <!-- <section id="contact" class="section contact">
+            <p class="label reveal">03 / CONTACT</p>
+            <div class="reveal">
+                <p class="eyebrow">HAVE A PROJECT?</p>
+                <h2>Let's build something
+                    <span>great.</span>
+                </h2>
+                <p class="copy">Have an idea, project or opportunity? Send a message and let’s start a conversation.
+                </p>
+                <a class="btn primary" href="mailto:mohdaltafsabri@gmail.com">Contact Me ↗</a>
+            </div>
+        </section> -->
+
+        <section id="contact" class="section contact">
+
+            <div class="contact-container">
+
+                <!-- Contact Information -->
+                <div class="contact-info reveal">
+
+                    <p class="label">CONTACT</p>
+
+                    <h2>
+                        Let's <span>talk.</span>
+                    </h2>
+
+                    <p class="copy">
+                        Have a project, idea, or opportunity?
+                        Send me a message and I'll get back to you.
+                    </p>
+
+                </div>
+
+
+                <!-- Contact Form -->
+                <form id="contactForm" class="contact-form reveal">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+
+                        <input type="text" id="name" name="name" placeholder="Your name" autocomplete="additional-name"
+                            required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+
+                        <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email"
+                            required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+
+                        <textarea id="message" name="message" rows="7" placeholder="Write your message..."
+                            required></textarea>
+                    </div>
+
+
+                    <button type="submit" class="btn primary" id="submitButton">
+                        Send Message ↗
+                    </button>
+
+
+                    <p id="formStatus"></p>
+
+                </form>
+
+            </div>
+
+        </section>
+    </main>
+    <footer>© 2026 Portfolio <span>Built with HTML • CSS • JavaScript</span></footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
